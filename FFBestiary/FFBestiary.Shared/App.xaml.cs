@@ -34,14 +34,15 @@ namespace FFBestiary
             this.InitializeComponent();
         }
 
-        public enum Experiences { Main }
+        public enum Experiences { Main, Enemies }
 
-        protected override Task OnInitializeAsync(IActivatedEventArgs args)
+        protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             _container.Register<ISqlLiteService, SqlLiteService>();
             _container.Verify();
-            
-            return Task.FromResult<object>(null);
+
+            await _container.GetInstance<SqlLiteService>().ClearLocalDb();
+            return;
         }
 
         protected override object Resolve(Type type)

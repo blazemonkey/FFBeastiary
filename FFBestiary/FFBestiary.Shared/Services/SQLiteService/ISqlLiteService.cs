@@ -10,9 +10,11 @@ namespace FFBestiary.Services.SQLiteService
     public interface ISqlLiteService
     {
         SQLiteAsyncConnection Conn { get; }
-        Task<object> ClearLocalDb();
+        Task ClearLocalDb();
 
         Task<Enemy> GetEnemyById(int id);
         Task<IEnumerable<Enemy>> GetAllEnemies();
+
+        Task<IEnumerable<Game>> GetAllGames();
     }
 }

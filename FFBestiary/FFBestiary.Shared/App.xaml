@@ -5,4 +5,12 @@
     xmlns:local="using:FFBestiary"
     xmlns:prism="using:Microsoft.Practices.Prism.Mvvm">
 
+    <prism:MvvmAppBase.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CustomTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </prism:MvvmAppBase.Resources>
+    
 </prism:MvvmAppBase>

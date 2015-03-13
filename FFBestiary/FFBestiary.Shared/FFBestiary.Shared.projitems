@@ -13,7 +13,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PageBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageFullPathConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\ISqlLiteService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\SqlLiteService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SQLite\SQLite.cs" />
@@ -25,6 +29,38 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Images\Interfaces\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)CustomTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Images\Bosses.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\1stray.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\2faced.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\8eye.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\acrophies.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFI.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFII.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIII.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIV.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIX.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFV.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFVI.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFVII.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFVIII.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFX.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFXI.png" />
   </ItemGroup>
 </Project>
