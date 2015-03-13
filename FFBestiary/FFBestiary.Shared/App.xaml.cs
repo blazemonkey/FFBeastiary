@@ -1,4 +1,5 @@
-﻿using FFBestiary.Services.SQLiteService;
+﻿using FFBestiary.Services.NavigationService;
+using FFBestiary.Services.SQLiteService;
 using Microsoft.Practices.Prism.Mvvm;
 using SimpleInjector;
 using System;
@@ -32,13 +33,13 @@ namespace FFBestiary
         public App()
         {
             this.InitializeComponent();
-        }
-
-        public enum Experiences { Main, Enemies }
+        }        
 
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
+            _container.RegisterSingle(NavigationService);
             _container.Register<ISqlLiteService, SqlLiteService>();
+            _container.Register<INavigationService, NavigationService>();
             _container.Verify();
 
             await _container.GetInstance<SqlLiteService>().ClearLocalDb();

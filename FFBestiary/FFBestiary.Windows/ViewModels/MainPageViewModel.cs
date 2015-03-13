@@ -10,14 +10,15 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FFBestiary.Services.NavigationService;
 
 namespace FFBestiary.ViewModels
 {
     public class MainPageViewModel : ViewModel, IMainPageViewModel
     {        
         private ISqlLiteService _localDb;
+        private INavigationService _navigationService;
         private string _title;
-        private ObservableCollection<Enemy> _enemies;
         private ObservableCollection<Game> _games;
 
         public string Title
@@ -26,51 +27,34 @@ namespace FFBestiary.ViewModels
             set { SetProperty(ref _title, value); }
         }
 
-        public ObservableCollection<Enemy> Enemies
-        {
-            get { return _enemies; }
-            set { SetProperty(ref _enemies, value); }
-        }
-
         public ObservableCollection<Game> Games
         {
             get { return _games; }
             set { SetProperty(ref _games, value); }
         }
 
-        public DelegateCommand GetEnemyCommand { get; set; }
         public DelegateCommand<Game> GameClickCommand { get; set; }
 
-        public MainPageViewModel(ISqlLiteService localDb)
+        public MainPageViewModel(ISqlLiteService localDb, INavigationService navigationService)
         {
             _localDb = localDb;
-            Title = "FINAL FANTASY BEASTIARY";
-            Enemies = new ObservableCollection<Enemy>();
-            Games = new ObservableCollection<Game>();
-            
+            _navigationService = navigationService;
 
-            GetEnemyCommand = new DelegateCommand(ExecuteGetEnemyCommand, () => true);
+            Title = "FINAL FANTASY BEASTIARY";
+            Games = new ObservableCollection<Game>();            
+
             GameClickCommand = new DelegateCommand<Game>(ExecuteGameClickCommand, x => true);
         }
 
         private async Task Initialize()
         {
-            var enemies = await _localDb.GetAllEnemies();
             var games = await _localDb.GetAllGames();
-
-            enemies.ForEach(x => Enemies.Add(x));
             games.ForEach(x => Games.Add(x));
         }
 
-        private async void ExecuteGetEnemyCommand()
+        private void ExecuteGameClickCommand(Game game)
         {
-            var enemy = await _localDb.GetEnemyById(1);
-
-        }
-
-        private async void ExecuteGameClickCommand(Game game)
-        {
-
+            _navigationService.Navigate(Experiences.Enemies, game.Id);
         }
 
         public override async void OnNavigatedTo(object navigationParameter, Windows.UI.Xaml.Navigation.NavigationMode navigationMode, Dictionary<string, object> viewModelState)

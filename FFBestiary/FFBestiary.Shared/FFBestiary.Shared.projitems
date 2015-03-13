@@ -18,6 +18,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService\INavigationService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\ISqlLiteService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\SqlLiteService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SQLite\SQLite.cs" />
