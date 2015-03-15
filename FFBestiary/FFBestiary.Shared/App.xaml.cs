@@ -1,4 +1,6 @@
-﻿using FFBestiary.Services.NavigationService;
+﻿using FFBestiary.Services.FileReaderService;
+using FFBestiary.Services.JSONService;
+using FFBestiary.Services.NavigationService;
 using FFBestiary.Services.SQLiteService;
 using Microsoft.Practices.Prism.Mvvm;
 using SimpleInjector;
@@ -38,6 +40,8 @@ namespace FFBestiary
         protected override async Task OnInitializeAsync(IActivatedEventArgs args)
         {
             _container.RegisterSingle(NavigationService);
+            _container.Register<IFileReaderService, FileReaderService>();
+            _container.Register<IJSONService, JSONNetService>();
             _container.Register<ISqlLiteService, SqlLiteService>();
             _container.Register<INavigationService, NavigationService>();
             _container.Verify();

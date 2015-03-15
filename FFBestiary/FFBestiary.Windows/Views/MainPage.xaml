@@ -41,7 +41,7 @@
                           helpers:ItemClickCommand.Command="{Binding GameClickCommand}">
                         <GridView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="10">
+                                <StackPanel Margin="5">
                                     <Image Source="{Binding ImagePath, Converter={StaticResource ImageFullPathConverter}, ConverterParameter=Game}" Width="240"/>
                                     <TextBlock Text="{Binding FullName}" FontSize="{ThemeResource HubControlFontSize}"/>
                                 </StackPanel>
@@ -52,16 +52,6 @@
             </HubSection>
             <HubSection Header="FAVOURITES">
                 <DataTemplate>
-                    <!--<ListView Margin="20" ItemsSource="{Binding Enemies}" d:DataContext="{d:DesignInstance models:Enemy}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <TextBlock Text="{Binding Name}" FontSize="26"/>
-                                <Image Source="{Binding ImagePath, Converter={StaticResource ImageFullPathConverter}}" Stretch="None"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>-->
                 </DataTemplate>
             </HubSection>
 

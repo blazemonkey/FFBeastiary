@@ -1,0 +1,13 @@
+[
+    {"abbrName": "FFI", "fullName":"Final Fantasy I", "numeral": "1", "roman": "I", "imagePath": "FFI.png"}, 
+    {"abbrName": "FFII", "fullName":"Final Fantasy II", "numeral": "2", "roman": "II", "imagePath": "FFII.png"}, 
+    {"abbrName": "FFIII", "fullName":"Final Fantasy II", "numeral": "3", "roman": "III", "imagePath": "FFII.png"}, 
+    {"abbrName": "FFIV", "fullName":"Final Fantasy IV", "numeral": "4", "roman": "IV", "imagePath": "FFIV.png"}, 
+    {"abbrName": "FFV", "fullName":"Final Fantasy V", "numeral": "5", "roman": "V", "imagePath": "FFV.png"}, 
+    {"abbrName": "FFVI", "fullName":"Final Fantasy VI", "numeral": "6", "roman": "VI", "imagePath": "FFVI.png"}, 
+    {"abbrName": "FFVII", "fullName":"Final Fantasy VII", "numeral": "7", "roman": "VII", "imagePath": "FFVII.png"}, 
+    {"abbrName": "FFVIII", "fullName":"Final Fantasy VIII", "numeral": "8", "roman": "VIII", "imagePath": "FFVIII.png"}, 
+    {"abbrName": "FFIX", "fullName":"Final Fantasy IX", "numeral": "9", "roman": "IX", "imagePath": "FFIX.png"}, 
+    {"abbrName": "FFX", "fullName":"Final Fantasy X", "numeral": "10", "roman": "X", "imagePath": "FFX.png"}, 
+    {"abbrName": "FFXI", "fullName":"Final Fantasy XI", "numeral": "11", "roman": "XI", "imagePath": "FFXI.png"}
+]
