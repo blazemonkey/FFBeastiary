@@ -15,39 +15,44 @@
     xmlns:helpers="using:FFBestiary.Helpers"
     d:DataContext="{d:DesignInstance design:MainPageViewModel}"
     mc:Ignorable="d" FontFamily="IrisUPC">
-    
+
     <d:Page.DataContext>
         <design:MainPageViewModel />
     </d:Page.DataContext>
-    
+
     <controls:PageBase.Resources>
         <converters:ImageFullPathConverter x:Key="ImageFullPathConverter"/>
     </controls:PageBase.Resources>
+    
+    <Grid>
 
-    <Hub Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Header="{Binding Title}">
-        <HubSection Width="1000">
-            <HubSection.Background>
-                <ImageBrush ImageSource="ms-appx:///Images/Bosses.jpg" Stretch="UniformToFill"/>
-            </HubSection.Background>
-        </HubSection>
-        <HubSection Header="BY SERIES">
-            <DataTemplate>
-                <GridView ItemsSource="{Binding Games}" SelectionMode="None" IsItemClickEnabled="True"
+        <Hub Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+            <Hub.Header>
+                <TextBlock Text="{Binding Title}"/>
+            </Hub.Header>
+            <HubSection Width="1000">
+                <HubSection.Background>
+                    <ImageBrush ImageSource="ms-appx:///Images/Bosses.jpg" Stretch="UniformToFill"/>
+                </HubSection.Background>
+            </HubSection>
+            <HubSection Header="BY SERIES">
+                <DataTemplate>
+                    <GridView ItemsSource="{Binding Games}" SelectionMode="None" IsItemClickEnabled="True"
                           helpers:ItemClickCommand.Command="{Binding GameClickCommand}">
-                    <GridView.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Margin="10">
-                                <Image Source="{Binding ImagePath, Converter={StaticResource ImageFullPathConverter}, ConverterParameter=Game}" Width="240"/>
-                                <TextBlock Text="{Binding FullName}" FontSize="{ThemeResource HubControlFontSize}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </GridView.ItemTemplate>
-                </GridView>
-            </DataTemplate>
-        </HubSection>
-        <HubSection Header="FAVOURITES">
-            <DataTemplate>
-                <!--<ListView Margin="20" ItemsSource="{Binding Enemies}" d:DataContext="{d:DesignInstance models:Enemy}">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10">
+                                    <Image Source="{Binding ImagePath, Converter={StaticResource ImageFullPathConverter}, ConverterParameter=Game}" Width="240"/>
+                                    <TextBlock Text="{Binding FullName}" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
+                </DataTemplate>
+            </HubSection>
+            <HubSection Header="FAVOURITES">
+                <DataTemplate>
+                    <!--<ListView Margin="20" ItemsSource="{Binding Enemies}" d:DataContext="{d:DesignInstance models:Enemy}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
@@ -57,13 +62,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>-->
-            </DataTemplate>
-        </HubSection>
-        
-        <HubSection Header="BEAST OF THE DAY">
-            
-        </HubSection>
-    </Hub>
+                </DataTemplate>
+            </HubSection>
 
-    
+            <HubSection Header="BEAST OF THE DAY">
+
+            </HubSection>
+        </Hub>
+        <SearchBox HorizontalAlignment="Right" Margin="20" VerticalAlignment="Top" Width="300" PlaceholderText="SEARCH" FontSize="{ThemeResource SearchControlFontSize}"/>
+    </Grid>
+
 </controls:PageBase>

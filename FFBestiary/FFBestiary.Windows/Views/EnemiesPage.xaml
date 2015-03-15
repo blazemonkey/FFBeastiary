@@ -8,9 +8,97 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="using:Microsoft.Practices.Prism.Mvvm"
     xmlns:controls="using:FFBestiary.Controls"
-    mc:Ignorable="d">
+    xmlns:converters="using:FFBestiary.Converters"
+    xmlns:design="using:FFBestiary.DesignTime"
+    xmlns:helpers="using:FFBestiary.Helpers"
+    d:DataContext="{d:DesignInstance design:EnemiesPageViewModel}"
+    mc:Ignorable="d"
+    x:Name="Root"
+    FontFamily="IrisUPC">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <d:Page.DataContext>
+        <design:EnemiesPageViewModel />
+    </d:Page.DataContext>
 
-    </Grid>
+    <controls:PageBase.Resources>
+        <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
+        <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </controls:PageBase.Resources>
+
+    <Hub Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Hub.Header>
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{StaticResource NavigationBackButtonNormalStyle}" VerticalAlignment="Center" Command="{Binding BackCommand}"/>
+                <TextBlock Text="{Binding SelectedGame.FullName, Converter={StaticResource ToUpperCaseConverter}}" Margin="10,0,0,0"/>
+            </StackPanel>
+        </Hub.Header>
+        <HubSection Width="500">
+            <DataTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SORT BY: " FontSize="{ThemeResource HubControlFontSize}"/>
+                            <ComboBox Margin="10,0,0,0" Width="300" HorizontalAlignment="Left" SelectedValue="{Binding SelectedSort, Mode=TwoWay}" FontSize="{ThemeResource HubControlFontSize}">
+                                <x:String>A-Z</x:String>
+                                <x:String>LEVEL</x:String>
+                                <x:String>HP</x:String>
+                                <x:String>MP</x:String>
+                                <x:String>EXP</x:String>
+                                <x:String>AP</x:String>
+                            </ComboBox>
+                            <Button Margin="5,0,0,0" BorderThickness="0" Padding="0" Command="{Binding SortEnemiesCommand}">
+                                <SymbolIcon Symbol="Sort"/>
+                            </Button>
+                        </StackPanel>
+                        <Line Stroke="White" StrokeThickness="3" X2="420" Margin="0,10,0,0"/>
+                    </StackPanel>
+                    <ListView Grid.Row="1" ItemsSource="{Binding Enemies}" SelectionMode="None" IsItemClickEnabled="True"
+                          helpers:ItemClickCommand.Command="{Binding ShowEnemyCommand}"
+                          Margin="10">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="{ThemeResource HubControlFontSize}" Width="400"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </DataTemplate>
+        </HubSection>
+        <HubSection>
+            <DataTemplate>
+                <StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
+                    <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
+                    <Line Stroke="White" StrokeThickness="2" X2="500" />
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.5*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Column="0">
+                            <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}"/>
+                        </Grid>
+                        <Grid Column="1">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="LEVEL" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="HP" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <!--<TextBlock Text="100" FontSize="{ThemeResource HubControlFontSize}"/>-->
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="MP" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </HubSection>
+    </Hub>
 </controls:PageBase>

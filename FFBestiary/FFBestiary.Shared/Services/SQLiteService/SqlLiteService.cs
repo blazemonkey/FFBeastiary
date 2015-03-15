@@ -40,10 +40,35 @@ namespace FFBestiary.Services.SQLiteService
             {
                 await _conn.InsertAllAsync(new[] 
                 { 
-                    new Enemy {Id = 1, Name = "1st Ray", ImagePath = "1stray.png" },
-                    new Enemy{ Id = 2, Name = "2-Faced", ImagePath = "2faced.png" },
-                    new Enemy { Id = 3, Name = "8 eye", ImagePath = "8eye.png" },
-                    new Enemy { Id = 4, Name = "Acrophies", ImagePath = "acrophies.png"},                    
+                    new Enemy {Id = 1, GameId = 7, Name = "1st Ray", ImagePath = "1st Ray.png" },
+                    new Enemy{ Id = 2, GameId = 7, Name = "2-Faced", ImagePath = "2-Faced.png" },
+                    new Enemy { Id = 3, GameId = 7, Name = "8 Eye", ImagePath = "8 Eye.png" },
+                    new Enemy { Id = 4, GameId = 7, Name = "Acrophies", ImagePath = "Acrophies.png"},  
+                    new Enemy { Id =5 , GameId = 7, Name = "Adamantai", ImagePath = "Adamantai.png"}, 
+                    new Enemy { Id =6 , GameId = 7, Name = "Aero Combatant", ImagePath = "Aero Combatant.png"}, 
+                    new Enemy { Id =7 , GameId = 7, Name = "Allemagne", ImagePath = "Allemagne.png"}, 
+                    new Enemy { Id =8 , GameId = 7, Name = "Ancient Dragon", ImagePath = "Ancient Dragon.png"}, 
+                    new Enemy { Id =9 , GameId = 7, Name = "Ark Dragon", ImagePath = "Ark Dragon.png"}, 
+                    new Enemy { Id =10 , GameId = 7, Name = "Armored Golem", ImagePath = "Armored Golem.png"}, 
+                    new Enemy { Id =11 , GameId = 7, Name = "Attack Squad", ImagePath = "Attack Squad.png"}, 
+                    new Enemy { Id =12 , GameId = 7, Name = "Bad Rap", ImagePath = "Bad Rap.png"}, 
+                    new Enemy { Id =13 , GameId = 7, Name = "Bagnadrana", ImagePath = "Bagnadrana.png"}, 
+                    new Enemy { Id =14 , GameId = 7, Name = "Bahba Velamyu", ImagePath = "Bahba Velamyu.png"}, 
+                    new Enemy { Id =15 , GameId = 7, Name = "Bandersnatch", ImagePath = "Bandersnatch.png"}, 
+                    new Enemy { Id =16 , GameId = 7, Name = "Bandit", ImagePath = "Bandit.png"}, 
+                    new Enemy { Id =17 , GameId = 7, Name = "Battery Cap", ImagePath = "Battery Cap.png"}, 
+                    new Enemy { Id =18 , GameId = 7, Name = "Beachplug", ImagePath = "Beachplug.png"}, 
+                    new Enemy { Id =19 , GameId = 7, Name = "Behemoth", ImagePath = "Behemoth.png"}, 
+                    new Enemy { Id =20 , GameId = 7, Name = "Bizarre Bug", ImagePath = "Bizarre Bug.png"}, 
+                    new Enemy { Id =21 , GameId = 7, Name = "Black Bat", ImagePath = "Black Bat.png"}, 
+                    new Enemy { Id =22 , GameId = 7, Name = "Bloatfloat", ImagePath = "Bloatfloat.png"}, 
+                    new Enemy { Id =23 , GameId = 7, Name = "Blood Taste", ImagePath = "Blood Taste.png"}, 
+                    new Enemy { Id =24 , GameId = 7, Name = "Blue Dragon", ImagePath = "Blue Dragon.png"}, 
+                    new Enemy { Id =25 , GameId = 7, Name = "Blugu", ImagePath = "Blugu.png"}, 
+                    new Enemy { Id =26 , GameId = 7, Name = "Bomb", ImagePath = "Bomb.png"}, 
+                    new Enemy { Id =27 , GameId = 7, Name = "Boundfat", ImagePath = "Boundfat.png"}, 
+                    new Enemy { Id =28 , GameId = 7, Name = "Brain Pod", ImagePath = "Brain Pod.png"}, 
+                    new Enemy { Id =29 , GameId = 7, Name = "Bullmotor", ImagePath = "Bullmotor.png"}
                 });
             }
 
@@ -71,9 +96,19 @@ namespace FFBestiary.Services.SQLiteService
             return await _conn.FindAsync<Enemy>(id);
         }
 
+        public async Task<IEnumerable<Enemy>> GetEnemiesByGameId(int gameId)
+        {
+            return await _conn.Table<Enemy>().Where(x => x.GameId == gameId).ToListAsync();
+        }
+
         public async Task<IEnumerable<Enemy>> GetAllEnemies()
         {
             return await _conn.Table<Enemy>().ToListAsync();
+        }
+
+        public async Task<Game> GetGameById(int id)
+        {
+            return await _conn.FindAsync<Game>(id);
         }
 
         public async Task<IEnumerable<Game>> GetAllGames()

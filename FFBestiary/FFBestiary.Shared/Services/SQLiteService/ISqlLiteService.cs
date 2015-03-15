@@ -13,8 +13,10 @@ namespace FFBestiary.Services.SQLiteService
         Task ClearLocalDb();
 
         Task<Enemy> GetEnemyById(int id);
+        Task<IEnumerable<Enemy>> GetEnemiesByGameId(int gameId);
         Task<IEnumerable<Enemy>> GetAllEnemies();
 
+        Task<Game> GetGameById(int id);
         Task<IEnumerable<Game>> GetAllGames();
     }
 }

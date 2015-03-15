@@ -26,14 +26,14 @@ namespace FFBestiary.Helpers
         private static void OnCommandPropertyChanged(DependencyObject d,
             DependencyPropertyChangedEventArgs e)
         {
-            var control = d as GridView;
+            var control = d as ListViewBase;
             if (control != null)
                 control.ItemClick += OnItemClick;
         }
 
         private static void OnItemClick(object sender, ItemClickEventArgs e)
         {
-            var control = sender as GridView;
+            var control = sender as ListViewBase;
             var command = GetCommand(control);
 
             if (command != null && command.CanExecute(e.ClickedItem))

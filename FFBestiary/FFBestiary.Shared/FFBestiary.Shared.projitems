@@ -14,6 +14,8 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PageBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageFullPathConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ToUpperCaseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
@@ -41,18 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)Images\Bosses.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\1stray.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\2faced.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\8eye.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Images\FF7\acrophies.png">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\1st Ray.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\8 Eye.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Acrophies.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Adamantai.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFI.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFII.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIII.png" />

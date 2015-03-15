@@ -7,14 +7,17 @@
         <ResourceDictionary x:Key="Default">
             <FontFamily x:Key="ContentControlThemeFontFamily">IrisUPC</FontFamily>
             <x:Double x:Key="HubControlFontSize">26</x:Double>
+            <x:Double x:Key="SearchControlFontSize">22</x:Double>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Dark">
             <FontFamily x:Key="ContentControlThemeFontFamily">IrisUPC</FontFamily>
             <x:Double x:Key="HubControlFontSize">26</x:Double>
+            <x:Double x:Key="SearchControlFontSize">22</x:Double>
         </ResourceDictionary>
         <ResourceDictionary x:Key="Light">
             <FontFamily x:Key="ContentControlThemeFontFamily">IrisUPC</FontFamily>
             <x:Double x:Key="HubControlFontSize">26</x:Double>
+            <x:Double x:Key="SearchControlFontSize">22</x:Double>
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
