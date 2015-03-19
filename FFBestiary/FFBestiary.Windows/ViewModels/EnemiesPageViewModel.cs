@@ -22,6 +22,7 @@ namespace FFBestiary.ViewModels
         private Game _selectedGame;
         private ObservableCollection<Enemy> _enemies;
         private Enemy _selectedEnemy;
+        private IStats _selectedEnemyStats;
         private string _selectedSort;
 
         public Game SelectedGame
@@ -40,6 +41,12 @@ namespace FFBestiary.ViewModels
         {
             get { return _selectedEnemy; }
             set { SetProperty(ref _selectedEnemy, value); }
+        }
+
+        public IStats SelectedEnemyStats
+        {
+            get { return _selectedEnemyStats; }
+            set { SetProperty(ref _selectedEnemyStats, value); }
         }
 
         public string SelectedSort
@@ -79,6 +86,7 @@ namespace FFBestiary.ViewModels
                 case "A-Z":
                     Enemies = new ObservableCollection<Enemy>(Enemies.OrderBy(x => x.Name));
                     break;
+
             }
         }
 
@@ -93,6 +101,7 @@ namespace FFBestiary.ViewModels
         private void ExecuteShowEnemyCommand(Enemy enemy)
         {
             SelectedEnemy = enemy;
+            SelectedEnemyStats = SelectedEnemy.Stats.First();
         }
 
         private void ExecuteBackCommand()
@@ -109,7 +118,11 @@ namespace FFBestiary.ViewModels
             enemies.OrderBy(x => x.Name).ForEach(x => Enemies.Add(x));
 
             if (Enemies.Any())
+            {
                 SelectedEnemy = Enemies.First();
+                SelectedEnemyStats = SelectedEnemy.Stats.First();
+            }
+                
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }

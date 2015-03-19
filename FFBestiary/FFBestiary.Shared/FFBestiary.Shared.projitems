@@ -20,6 +20,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\StatsFFVII.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\FileReaderService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\IFileReaderService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\JSONService\IJSONService.cs" />
@@ -47,12 +49,13 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Data\ffvii.json">
+    <Content Include="$(MSBuildThisFileDirectory)Data\enemies.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)Data\games.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Data\stats_ffvii.json" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Bosses.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\1st Ray.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\8 Eye.png" />
@@ -63,6 +66,11 @@
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Ark Dragon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Armored Golem.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Attack Squad.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bad Rap.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bagnadrana.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bahba Velamyu.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bandersnatch.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bandit.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFI.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFII.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIII.png" />

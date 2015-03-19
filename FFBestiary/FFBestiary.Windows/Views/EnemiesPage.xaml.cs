@@ -23,9 +23,24 @@ namespace FFBestiary.Views
     /// </summary>
     public sealed partial class EnemiesPage : PageBase
     {
+        private ContentControl _statsContentControl;
+        private int _gameId;
+
         public EnemiesPage()
         {
-            this.InitializeComponent();
+            this.InitializeComponent();            
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            _gameId = int.Parse(e.Parameter.ToString());            
+            base.OnNavigatedTo(e);
+        }
+
+        private void StatsContentControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            _statsContentControl = (ContentControl)sender;
+            _statsContentControl.Style = (Style)this.Resources["FFVIIEnemies"];
         }
     }
 }

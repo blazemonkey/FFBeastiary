@@ -19,5 +19,7 @@ namespace FFBestiary.Models
         public string Name { get; set; }
         [DataMember(Name = "imagePath")]
         public string ImagePath { get; set; }
+        [Ignore]
+        public IEnumerable<IStats> Stats { get; set; }
     }
 }

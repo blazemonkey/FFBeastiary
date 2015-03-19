@@ -23,7 +23,16 @@
     <controls:PageBase.Resources>
         <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
         <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
-        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>        
+        <Style x:Name="FFVIIEnemies" TargetType="ContentControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContentControl">
+                        <local:EnemiesFFVIIUserControl/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </controls:PageBase.Resources>
 
     <Hub Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
@@ -71,7 +80,7 @@
         </HubSection>
         <HubSection>
             <DataTemplate>
-                <StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
+                <!--<StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
                     <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
                     <Line Stroke="White" StrokeThickness="2" X2="500" />
                     <Grid Margin="0,20,0,0">
@@ -83,21 +92,39 @@
                             <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}"/>
                         </Grid>
                         <Grid Column="1">
-                            <StackPanel>
+                            <StackPanel DataContext="{Binding SelectedEnemyStats}">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="LEVEL" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="LEVEL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding Level}" FontSize="{ThemeResource HubControlFontSize}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="HP" FontSize="{ThemeResource HubControlFontSize}"/>
-                                    <!--<TextBlock Text="100" FontSize="{ThemeResource HubControlFontSize}"/>-->
+                                    <TextBlock Text="HP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding HP}" FontSize="{ThemeResource HubControlFontSize}"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="MP" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="MP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding MP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="EXP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding EXP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="AP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding AP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="GIL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                                    <TextBlock Text="{Binding Gil}" FontSize="{ThemeResource HubControlFontSize}"/>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
                     </Grid>
-                </StackPanel>
+                    <Grid Margin="0,10,0,0">
+                        
+                    </Grid>
+                </StackPanel>-->
+                <ContentControl x:Name="StatsContentControl" Loaded="StatsContentControl_Loaded"/>
             </DataTemplate>
         </HubSection>
     </Hub>

@@ -1,0 +1,69 @@
+﻿<UserControl
+    x:Class="FFBestiary.Views.EnemiesFFVIIUserControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FFBestiary.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:design="using:FFBestiary.DesignTime"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:FFBestiary.Converters"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    FontFamily="IrisUPC">
+
+    <d:Page.DataContext>
+        <design:EnemiesPageViewModel />
+    </d:Page.DataContext>
+
+    <UserControl.Resources>
+        <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
+        <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
+        <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
+        <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
+        <Line Stroke="White" StrokeThickness="2" X2="500" />
+        <Grid Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Column="0">
+                <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}"/>
+            </Grid>
+            <Grid Column="1">
+                <StackPanel DataContext="{Binding SelectedEnemyStats}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="LEVEL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding Level}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="HP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding HP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="MP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding MP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="EXP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding EXP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="AP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding AP}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="GIL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
+                        <TextBlock Text="{Binding Gil}" FontSize="{ThemeResource HubControlFontSize}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Margin="0,10,0,0">
+
+        </Grid>
+    </StackPanel>
+</UserControl>

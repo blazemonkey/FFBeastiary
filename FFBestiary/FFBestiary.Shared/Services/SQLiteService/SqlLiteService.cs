@@ -4,6 +4,7 @@ using FFBestiary.Services.JSONService;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,8 @@ namespace FFBestiary.Services.SQLiteService
             var createTasks = new Task[]
             {
                 _conn.CreateTableAsync<Enemy>(),
-                _conn.CreateTableAsync<Game>()
+                _conn.CreateTableAsync<Game>(),
+                _conn.CreateTableAsync<StatsFFVII>()
             };
 
             Task.WaitAll(createTasks);
@@ -44,10 +46,10 @@ namespace FFBestiary.Services.SQLiteService
 
             if (await _conn.Table<Enemy>().CountAsync() == 0)
             {
-                var enemiesFF7JSON = await _fileReader.ReadFile("ffvii.json");
-                var enemiesFF7 = _json.Deserialize<List<Enemy>>(enemiesFF7JSON);
+                var enemiesJSON = await _fileReader.ReadFile("enemies.json");
+                var enemies = _json.Deserialize<List<Enemy>>(enemiesJSON);
 
-                await _conn.InsertAllAsync(enemiesFF7);
+                await _conn.InsertAllAsync(enemies);
             }
 
             if (await _conn.Table<Game>().CountAsync() == 0)
@@ -57,16 +59,46 @@ namespace FFBestiary.Services.SQLiteService
 
                 await _conn.InsertAllAsync(games);
             }
+
+            if (await _conn.Table<StatsFFVII>().CountAsync() == 0)
+            {
+                var statsJSON = await _fileReader.ReadFile("stats_ffvii.json");
+                var stats = _json.Deserialize<List<StatsFFVII>>(statsJSON);
+
+                await _conn.InsertAllAsync(stats);
+            }
+
+            //await DoInsertDataAsync<Enemy>("enemies.json");
+        }
+
+        private async Task DoInsertDataAsync<T>(string fileName)
+        {
+            var json = await _fileReader.ReadFile(fileName);
+
+            var type = typeof(T);
+            var sqliteType = typeof(SQLiteAsyncConnection);
+
+            var test = sqliteType.GetTypeInfo().DeclaredMethods;
         }
 
         public async Task<Enemy> GetEnemyById(int id)
         {
-            return await _conn.FindAsync<Enemy>(id);
+            var enemy = await _conn.FindAsync<Enemy>(id);
+            enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
+
+            return enemy;
         }
 
         public async Task<IEnumerable<Enemy>> GetEnemiesByGameId(int gameId)
         {
-            return await _conn.Table<Enemy>().Where(x => x.GameId == gameId).ToListAsync();
+            var enemies = await _conn.Table<Enemy>().Where(x => x.GameId == gameId).ToListAsync();
+
+            foreach (var enemy in enemies)
+            {
+                enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
+            }
+
+            return enemies;
         }
 
         public async Task<IEnumerable<Enemy>> GetAllEnemies()
@@ -88,6 +120,7 @@ namespace FFBestiary.Services.SQLiteService
         {
             await _conn.DropTableAsync<Enemy>();
             await _conn.DropTableAsync<Game>();
+            await _conn.DropTableAsync<StatsFFVII>();
             await InitDb();
         }
     }
