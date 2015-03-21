@@ -14,6 +14,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PageBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageFullPathConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\IsBossConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NullToVisibilityConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ToUpperCaseConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable.cs" />
@@ -60,7 +61,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\1st Ray.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\8 Eye.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Acrophies.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Adamantai.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Adamantaimai.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Allemagne.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Ancient Dragon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Ark Dragon.png" />

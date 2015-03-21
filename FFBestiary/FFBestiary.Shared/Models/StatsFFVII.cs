@@ -26,5 +26,19 @@ namespace FFBestiary.Models
         public int EXP { get; set; }
         [DataMember(Name = "gil")]
         public int Gil { get; set; }
+        [DataMember(Name = "attack")]
+        public int Attack { get; set; }
+        [DataMember(Name = "mAttack")]
+        public int MAttack { get; set; }
+        [DataMember(Name = "defense")]
+        public int Defense { get; set; }
+        [DataMember(Name = "mDefense")]
+        public int MDefense { get; set; }
+        [DataMember(Name = "defenseP")]
+        public int DefenseP { get; set; }
+        [DataMember(Name = "dexterity")]
+        public int Dexterity { get; set; }
+        [DataMember(Name = "luck")]
+        public int Luck { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FFBestiary.Controls;
+using Microsoft.Practices.Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

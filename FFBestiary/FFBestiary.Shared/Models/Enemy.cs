@@ -19,7 +19,15 @@ namespace FFBestiary.Models
         public string Name { get; set; }
         [DataMember(Name = "imagePath")]
         public string ImagePath { get; set; }
+        [DataMember(Name = "description")]
+        public string Description { get; set; }
+        [DataMember(Name = "displayOrder")]
+        public string DisplayOrder { get; set; }
+        [DataMember(Name = "isBoss")]
+        public bool IsBoss { get; set; }
         [Ignore]
         public IEnumerable<IStats> Stats { get; set; }
+        [Ignore]
+        public IEnumerable<int> RelatedEnemies { get; set; }
     }
 }

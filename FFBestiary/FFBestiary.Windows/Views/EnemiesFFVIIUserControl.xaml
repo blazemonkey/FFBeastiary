@@ -8,9 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:FFBestiary.Converters"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
-    FontFamily="IrisUPC">
+    FontFamily="IrisUPC"
+    FontSize="{ThemeResource HubControlFontSize}">
 
     <d:Page.DataContext>
         <design:EnemiesPageViewModel />
@@ -19,51 +18,185 @@
     <UserControl.Resources>
         <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
         <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
+        <converters:IsBossConverter x:Key="IsBossConverter"/>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
-        <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
-        <Line Stroke="White" StrokeThickness="2" X2="500" />
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
+            <TextBlock Margin="10,0,0,0" Text="{Binding SelectedEnemy.IsBoss, Converter={StaticResource IsBossConverter}}" VerticalAlignment="Center"/>
+        </StackPanel>
+        <Line Stroke="White" StrokeThickness="2" X2="1200" />
         <Grid Margin="0,20,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid Column="0">
-                <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}"/>
-            </Grid>
-            <Grid Column="1">
-                <StackPanel DataContext="{Binding SelectedEnemyStats}">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="LEVEL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding Level}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="HP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding HP}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="MP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding MP}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="EXP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding EXP}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="AP" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding AP}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="GIL" Width="150" FontSize="{ThemeResource HubControlFontSize}"/>
-                        <TextBlock Text="{Binding Gil}" FontSize="{ThemeResource HubControlFontSize}"/>
-                    </StackPanel>
+            <Grid Grid.Column="0">
+                <StackPanel HorizontalAlignment="Center">
+                    <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}" Width="200" VerticalAlignment="Top"/>                    
+                    <TextBlock Margin="10" Text="{Binding SelectedEnemy.Description}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>
-        </Grid>
-        <Grid Margin="0,10,0,0">
-
+            <Grid Grid.Column="1" Margin="10">
+                <StackPanel>
+                    <TextBlock Text="BATTLE STATISTICS" FontSize="46"/>
+                    <Line Stroke="White" StrokeThickness="1" X2="260" />
+                    <Grid Margin="10" DataContext="{Binding SelectedEnemyStats}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="250"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="LEVEL" Width="150"/>
+                                    <TextBlock Text="{Binding Level}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="HP" Width="150"/>
+                                    <TextBlock Text="{Binding HP}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="MP" Width="150"/>
+                                    <TextBlock Text="{Binding MP}" FontSize="28"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="EXP" Width="150"/>
+                                    <TextBlock Text="{Binding EXP}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="AP" Width="150"/>
+                                    <TextBlock Text="{Binding AP}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="GIL" Width="150"/>
+                                    <TextBlock Text="{Binding Gil}" FontSize="28"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="250"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="ATTACK" Width="150"/>
+                                    <TextBlock Text="{Binding Attack}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="M. ATTACK" Width="150"/>
+                                    <TextBlock Text="{Binding MAttack}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="DEFENSE" Width="150"/>
+                                    <TextBlock Text="{Binding Defense}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="M. DEFENSE" Width="150"/>
+                                    <TextBlock Text="{Binding MDefense}" FontSize="28"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="DEFENSE%" Width="150"/>
+                                    <TextBlock Text="{Binding DefenseP}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="DEXTERITY" Width="150"/>
+                                    <TextBlock Text="{Binding Dexterity}" FontSize="28"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="LUCK" Width="150"/>
+                                    <TextBlock Text="{Binding Luck}" FontSize="28"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>                    
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="2" Margin="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0">
+                        <TextBlock Text="ELEMENTAL AFFINITY" FontSize="46"/>
+                        <Line Stroke="White" StrokeThickness="1" X2="300" />
+                        <Grid Margin="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="300"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="FIRE" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="ICE" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="LIGHTNING" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="EARTH" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="POISON" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="GRAVITY" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="WATER" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="WIND" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="HOLY" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="RESTORATIVE" Width="150"/>
+                                        <TextBlock FontSize="28"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="STATUS IMMUNITY" FontSize="46"/>
+                        <Line Stroke="White" StrokeThickness="1" X2="280" />
+                        <TextBlock Margin="10" Text="No immunities for this enemy"/>
+                    </StackPanel>
+                </Grid>                
+            </Grid>
         </Grid>
     </StackPanel>
 </UserControl>
