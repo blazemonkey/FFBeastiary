@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 
 namespace FFBestiary.Services.SQLiteService
 {
@@ -46,7 +47,7 @@ namespace FFBestiary.Services.SQLiteService
 
             if (await _conn.Table<Enemy>().CountAsync() == 0)
             {
-                var enemiesJSON = await _fileReader.ReadFile("enemies.json");
+                var enemiesJSON = await _fileReader.ReadFile(Package.Current.InstalledLocation, "enemies.json");
                 var enemies = _json.Deserialize<List<Enemy>>(enemiesJSON);
 
                 await _conn.InsertAllAsync(enemies);
@@ -54,7 +55,7 @@ namespace FFBestiary.Services.SQLiteService
 
             if (await _conn.Table<Game>().CountAsync() == 0)
             {
-                var gamesJSON = await _fileReader.ReadFile("games.json");
+                var gamesJSON = await _fileReader.ReadFile(Package.Current.InstalledLocation, "games.json");
                 var games = _json.Deserialize<List<Game>>(gamesJSON);
 
                 await _conn.InsertAllAsync(games);
@@ -62,7 +63,7 @@ namespace FFBestiary.Services.SQLiteService
 
             if (await _conn.Table<StatsFFVII>().CountAsync() == 0)
             {
-                var statsJSON = await _fileReader.ReadFile("stats_ffvii.json");
+                var statsJSON = await _fileReader.ReadFile(Package.Current.InstalledLocation, "stats_ffvii.json");
                 var stats = _json.Deserialize<List<StatsFFVII>>(statsJSON);
 
                 await _conn.InsertAllAsync(stats);
@@ -73,7 +74,7 @@ namespace FFBestiary.Services.SQLiteService
 
         private async Task DoInsertDataAsync<T>(string fileName)
         {
-            var json = await _fileReader.ReadFile(fileName);
+            var json = await _fileReader.ReadFile(Package.Current.InstalledLocation, fileName);
 
             var type = typeof(T);
             var sqliteType = typeof(SQLiteAsyncConnection);

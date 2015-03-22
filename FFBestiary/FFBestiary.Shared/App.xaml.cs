@@ -1,5 +1,7 @@
 ﻿using FFBestiary.Services.FileReaderService;
+using FFBestiary.Services.ImgurService;
 using FFBestiary.Services.JSONService;
+using FFBestiary.Services.MessageDialogService;
 using FFBestiary.Services.NavigationService;
 using FFBestiary.Services.SQLiteService;
 using Microsoft.Practices.Prism.Mvvm;
@@ -42,7 +44,9 @@ namespace FFBestiary
             _container.RegisterSingle(NavigationService);
             _container.Register<IFileReaderService, FileReaderService>();
             _container.Register<IJSONService, JSONNetService>();
+            _container.Register<IMessageDialogService, MessageDialogService>();
             _container.Register<ISqlLiteService, SqlLiteService>();
+            _container.Register<IImgurService, ImgurService>();
             _container.Register<INavigationService, NavigationService>();
             _container.Verify();
 

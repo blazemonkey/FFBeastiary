@@ -18,6 +18,11 @@ namespace FFBestiary.Services.JSONService
             }
         }
 
+        public object Deserialize(string json)
+        {
+            throw new NotImplementedException();
+        }
+
         public string Serialize(object instance)
         {
             using (MemoryStream _Stream = new MemoryStream())
