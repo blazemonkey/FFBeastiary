@@ -131,8 +131,7 @@ namespace FFBestiary.ViewModels
             {
                 SelectedEnemy = Enemies.First();
                 SelectedEnemyStats = SelectedEnemy.Stats.First();
-            }
-                
+            }                           
 
             base.OnNavigatedTo(navigationParameter, navigationMode, viewModelState);
         }

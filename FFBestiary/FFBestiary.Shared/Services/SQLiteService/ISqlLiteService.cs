@@ -15,8 +15,10 @@ namespace FFBestiary.Services.SQLiteService
         Task<Enemy> GetEnemyById(int id);
         Task<IEnumerable<Enemy>> GetEnemiesByGameId(int gameId);
         Task<IEnumerable<Enemy>> GetAllEnemies();
+        Task UpdateEnemyImagePath(string enemyName, string path);
 
         Task<Game> GetGameById(int id);
         Task<IEnumerable<Game>> GetAllGames();
+        Task UpdateGameImgurId(string path, string albumId);
     }
 }

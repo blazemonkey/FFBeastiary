@@ -46,11 +46,11 @@ namespace FFBestiary
             _container.Register<IJSONService, JSONNetService>();
             _container.Register<IMessageDialogService, MessageDialogService>();
             _container.Register<ISqlLiteService, SqlLiteService>();
-            _container.Register<IImgurService, ImgurService>();
+            _container.RegisterSingle<IImgurService, ImgurService>();
             _container.Register<INavigationService, NavigationService>();
-            _container.Verify();
 
             await _container.GetInstance<SqlLiteService>().ClearLocalDb();
+            await _container.GetInstance<ImgurService>().Initialize();
             return;
         }
 

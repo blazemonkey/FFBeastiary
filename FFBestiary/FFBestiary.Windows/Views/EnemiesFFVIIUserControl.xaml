@@ -36,7 +36,7 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel HorizontalAlignment="Center">
-                    <Image Source="{Binding SelectedEnemy.ImagePath, Converter={StaticResource ImageFullPathConverter}}" Width="200" VerticalAlignment="Top"/>                    
+                    <Image Source="{Binding SelectedEnemy.ImagePath}" Width="200" VerticalAlignment="Top"/>                    
                     <TextBlock Margin="10" Text="{Binding SelectedEnemy.Description}" TextWrapping="Wrap"/>
                 </StackPanel>
             </Grid>

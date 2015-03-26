@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FFBestiary.Services.NavigationService;
+using FFBestiary.Services.ImgurService;
 
 namespace FFBestiary.ViewModels
 {
@@ -18,6 +19,7 @@ namespace FFBestiary.ViewModels
     {        
         private ISqlLiteService _localDb;
         private INavigationService _navigationService;
+        private IImgurService _imgur;
         private string _title;
         private ObservableCollection<Game> _games;
 
@@ -35,10 +37,11 @@ namespace FFBestiary.ViewModels
 
         public DelegateCommand<Game> GameClickCommand { get; set; }
 
-        public MainPageViewModel(ISqlLiteService localDb, INavigationService navigationService)
+        public MainPageViewModel(ISqlLiteService localDb, INavigationService navigationService, IImgurService imgur)
         {
             _localDb = localDb;
             _navigationService = navigationService;
+            _imgur = imgur;
 
             Title = "FINAL FANTASY BEASTIARY";
             Games = new ObservableCollection<Game>();            
@@ -50,6 +53,9 @@ namespace FFBestiary.ViewModels
         {
             var games = await _localDb.GetAllGames();
             games.ForEach(x => Games.Add(x));
+
+            var albums = await _imgur.GetAllAlbums();
+            var images = await _imgur.GetAlbumImages(albums.First(x => x.Title == "FFVII").Id);
         }
 
         private void ExecuteGameClickCommand(Game game)

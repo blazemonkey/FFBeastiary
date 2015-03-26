@@ -23,5 +23,7 @@ namespace FFBestiary.Models
         public string Roman { get; set; }
         [DataMember(Name = "imagePath")]
         public string ImagePath { get; set; }
+        [DataMember(Name = "imgurId")]
+        public string ImgurId { get; set; }
     }
 }

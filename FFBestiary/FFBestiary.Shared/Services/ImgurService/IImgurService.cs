@@ -9,6 +9,6 @@ namespace FFBestiary.Services.ImgurService
     public interface IImgurService
     {
         Task<IEnumerable<ImgurAlbum>> GetAllAlbums();
-        string GetAlbum(string game);        
+        Task<IEnumerable<ImgurImage>> GetAlbumImages(string id);     
     }
 }

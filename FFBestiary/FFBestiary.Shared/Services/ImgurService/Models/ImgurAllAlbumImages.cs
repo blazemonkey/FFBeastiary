@@ -5,19 +5,17 @@ using System.Text;
 
 namespace FFBestiary.Services.ImgurService.Models
 {
-    public class ImgurAllAlbumsJson
+    public class ImgurAllAlbumImages
     {
-        public ImgurAllAlbumsJson()
+        public ImgurAllAlbumImages()
         {
-            Data = new List<ImgurAlbum>();
+            Data = new List<ImgurImage>();
         }
 
         [DataMember(Name = "data")]
-        public List<ImgurAlbum> Data { get; set; }
-
+        public List<ImgurImage> Data { get; set; }
         [DataMember(Name = "success")]
         public bool Success { get; set; }
-
         [DataMember(Name = "status")]
         public int Status { get; set; }
     }

@@ -2,6 +2,7 @@
 using FFBestiary.Services.ImgurService.Models;
 using FFBestiary.Services.JSONService;
 using FFBestiary.Services.MessageDialogService;
+using FFBestiary.Services.SQLiteService;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -16,10 +17,12 @@ namespace FFBestiary.Services.ImgurService
     {
         private IJSONService _json;
         private IFileReaderService _fileReader;
+        private ISqlLiteService _sql;
         private IMessageDialogService _dialog;
 
         private const string _tokenUri = "https://api.imgur.com/oauth2/token";
         private const string _albumsUri = "https://api.imgur.com/3/account/me/albums/";
+        private const string _albumImageUri = "https://api.imgur.com/3/account/me/album/{0}/images";
 
         private const string _errorMessage = "There is no internet connection detected. Enemy images will not be displayed.";
 
@@ -28,17 +31,32 @@ namespace FFBestiary.Services.ImgurService
         private string _accessToken;
         private string _refreshToken;
 
-        public ImgurService(IJSONService json, IFileReaderService fileReader, IMessageDialogService dialog)
+
+        public ImgurService(IJSONService json, IFileReaderService fileReader, ISqlLiteService sql, IMessageDialogService dialog)
         {
             _json = json;
             _fileReader = fileReader;
+            _sql = sql;
             _dialog = dialog;
-
-            ReadKeys();
-            GetAllAlbums();
         }
 
-        private async void ReadKeys()
+        public async Task Initialize()
+        {
+            var albums = await GetAllAlbums();
+
+            foreach (var album in albums)
+            {
+                await _sql.UpdateGameImgurId(album.Title, album.Id);
+                var images = await GetAlbumImages(album.Id);
+                
+                foreach (var image in images)
+                {
+                    await _sql.UpdateEnemyImagePath(image.Name, image.Link);
+                }
+            }
+        }
+
+        private async Task ReadKeys()
         {
             var keyFileExists = await _fileReader.FileExists(ApplicationData.Current.LocalFolder, "key.json");
 
@@ -91,7 +109,7 @@ namespace FFBestiary.Services.ImgurService
 
                     WriteKeys();
                 }
-                catch (HttpRequestException e)
+                catch (HttpRequestException)
                 {
 
                 }
@@ -104,7 +122,8 @@ namespace FFBestiary.Services.ImgurService
 
             using (var webRequest = new HttpClient())
             {
-                
+                await ReadKeys();
+
                 var authHeader = string.Format("{0} {1}", "Bearer", _accessToken);
                 webRequest.DefaultRequestHeaders.Add("Authorization", authHeader);
 
@@ -114,7 +133,7 @@ namespace FFBestiary.Services.ImgurService
                     response.EnsureSuccessStatusCode();
                     var responseBody = await response.Content.ReadAsStringAsync();
 
-                    var fullResponse = _json.Deserialize<ImgurAllAlbumsJson>(responseBody);
+                    var fullResponse = _json.Deserialize<ImgurAllAlbums>(responseBody);
                     return fullResponse.Data;
                 }
                 catch (HttpRequestException e)
@@ -133,16 +152,52 @@ namespace FFBestiary.Services.ImgurService
             if (!success)
             {
                 await GetNewAccessToken();
-                await GetAllAlbums();
+                return await GetAllAlbums();
             }
 
             return null;
         }
 
-        public string GetAlbum(string game)
+        public async Task<IEnumerable<ImgurImage>> GetAlbumImages(string id)
         {
+            var success = true;
 
-            return "";
+            using (var webRequest = new HttpClient())
+            {
+                await ReadKeys();
+
+                var authHeader = string.Format("{0} {1}", "Bearer", _accessToken);
+                webRequest.DefaultRequestHeaders.Add("Authorization", authHeader);
+
+                try
+                {
+                    var response = await webRequest.GetAsync(string.Format(_albumImageUri, id));
+                    response.EnsureSuccessStatusCode();
+                    var responseBody = await response.Content.ReadAsStringAsync();
+
+                    var fullResponse = _json.Deserialize<ImgurAllAlbumImages>(responseBody);
+                    return fullResponse.Data;
+                }
+                catch (HttpRequestException e)
+                {
+                    if (e.Message.StartsWith("Response status code does not indicate success: 403 (Permission Denied)."))
+                        success = false;
+                    else
+                        _dialog.Show(_errorMessage);
+                }
+                catch (Exception)
+                {
+                    _dialog.Show(_errorMessage);
+                }
+            }
+
+            if (!success)
+            {
+                await GetNewAccessToken();
+                return await GetAlbumImages(id);
+            }
+
+            return null;
         }
     }
 }

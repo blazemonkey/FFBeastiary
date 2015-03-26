@@ -28,7 +28,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\IImgurService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\ImgurService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurAlbum.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurAllAlbumsJson.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurAllAlbumImages.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurAllAlbums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurKeys.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\ImgurService\Models\ImgurRefreshToken.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\JSONService\IJSONService.cs" />

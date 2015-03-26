@@ -107,6 +107,14 @@ namespace FFBestiary.Services.SQLiteService
             return await _conn.Table<Enemy>().ToListAsync();
         }
 
+        public async Task UpdateEnemyImagePath(string enemyName, string path)
+        {
+            var enemy = await _conn.FindAsync<Enemy>(x => x.Name == enemyName);
+            enemy.ImagePath = path;
+
+            await _conn.UpdateAsync(enemy);
+        }
+
         public async Task<Game> GetGameById(int id)
         {
             return await _conn.FindAsync<Game>(id);
@@ -115,6 +123,14 @@ namespace FFBestiary.Services.SQLiteService
         public async Task<IEnumerable<Game>> GetAllGames()
         {
             return await _conn.Table<Game>().ToListAsync();
+        }
+
+        public async Task UpdateGameImgurId(string name, string albumId)
+        {
+            var game = await _conn.FindAsync<Game>(x => x.AbbrName == name);
+            game.ImgurId = albumId;
+
+            await _conn.UpdateAsync(game);           
         }
 
         public async Task ClearLocalDb()
