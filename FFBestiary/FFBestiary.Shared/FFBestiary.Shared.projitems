@@ -73,20 +73,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)Images\Bosses.jpg" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\1st Ray.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\8 Eye.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Acrophies.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Adamantaimai.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Allemagne.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Ancient Dragon.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Ark Dragon.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Armored Golem.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Attack Squad.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bad Rap.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bagnadrana.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bahba Velamyu.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bandersnatch.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Images\FFVII\Bandit.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFI.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFII.png" />
     <Content Include="$(MSBuildThisFileDirectory)Images\Series\FFIII.png" />
