@@ -35,6 +35,8 @@ namespace FFBestiary.Services.SQLiteService
             {
                 _conn.CreateTableAsync<Enemy>(),
                 _conn.CreateTableAsync<Game>(),
+                _conn.CreateTableAsync<Location>(),
+                _conn.CreateTableAsync<EnemyLocation>(),
                 _conn.CreateTableAsync<StatsFFVII>()
             };
 
@@ -59,6 +61,22 @@ namespace FFBestiary.Services.SQLiteService
                 var games = _json.Deserialize<List<Game>>(gamesJSON);
 
                 await _conn.InsertAllAsync(games);
+            }
+
+            if (await _conn.Table<Location>().CountAsync() == 0)
+            {
+                var locationsJSON = await _fileReader.ReadFile(Package.Current.InstalledLocation, "locations.json");
+                var locations = _json.Deserialize<List<Location>>(locationsJSON);
+
+                await _conn.InsertAllAsync(locations);
+            }
+
+            if (await _conn.Table<EnemyLocation>().CountAsync() == 0)
+            {
+                var enemyLocationsJSON = await _fileReader.ReadFile(Package.Current.InstalledLocation, "enemies_locations.json");
+                var enemyLocations = _json.Deserialize<List<EnemyLocation>>(enemyLocationsJSON);
+
+                await _conn.InsertAllAsync(enemyLocations);
             }
 
             if (await _conn.Table<StatsFFVII>().CountAsync() == 0)
@@ -86,6 +104,7 @@ namespace FFBestiary.Services.SQLiteService
         {
             var enemy = await _conn.FindAsync<Enemy>(id);
             enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
+            enemy.Locations = await _conn.QueryAsync<Location>("SELECT l.* FROM EnemyLocations AS el JOIN Locations AS l ON el.locationId = l.Id WHERE el.enemyId = ?", id);
 
             return enemy;
         }
@@ -97,6 +116,7 @@ namespace FFBestiary.Services.SQLiteService
             foreach (var enemy in enemies)
             {
                 enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
+                enemy.Locations = await _conn.QueryAsync<Location>("SELECT l.* FROM EnemyLocations AS el JOIN Locations AS l ON el.locationId = l.Id WHERE el.enemyId = ?", enemy.Id);
             }
 
             return enemies;
@@ -137,6 +157,8 @@ namespace FFBestiary.Services.SQLiteService
         {
             await _conn.DropTableAsync<Enemy>();
             await _conn.DropTableAsync<Game>();
+            await _conn.DropTableAsync<Location>();
+            await _conn.DropTableAsync<EnemyLocation>();
             await _conn.DropTableAsync<StatsFFVII>();
             await InitDb();
         }

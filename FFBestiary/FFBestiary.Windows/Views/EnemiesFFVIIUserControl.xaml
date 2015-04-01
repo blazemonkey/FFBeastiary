@@ -36,8 +36,14 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel HorizontalAlignment="Center">
-                    <Image Source="{Binding SelectedEnemy.ImagePath}" Width="200" VerticalAlignment="Top"/>                    
-                    <TextBlock Margin="10" Text="{Binding SelectedEnemy.Description}" TextWrapping="Wrap"/>
+                    <Image Source="{Binding SelectedEnemy.ImagePath}" Width="200" VerticalAlignment="Top"/>
+                    <ListView Margin="10" ItemsSource="{Binding SelectedEnemy.Locations}" SelectionMode="None" IsItemClickEnabled="False">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}" FontSize="{ThemeResource HubControlFontSize}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1" Margin="10">

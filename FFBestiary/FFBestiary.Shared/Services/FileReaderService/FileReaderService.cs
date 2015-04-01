@@ -19,7 +19,7 @@ namespace FFBestiary.Services.FileReaderService
             return content;
         }
 
-        public async void WriteFile(IStorageFolder folder, string text, string fileName)
+        public async Task WriteFile(IStorageFolder folder, string text, string fileName)
         {
             var dataFolder = await folder.GetFolderAsync("Data");
             var file = await dataFolder.GetFileAsync(fileName);

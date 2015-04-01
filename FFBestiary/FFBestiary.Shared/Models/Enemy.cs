@@ -29,5 +29,8 @@ namespace FFBestiary.Models
         public IEnumerable<IStats> Stats { get; set; }
         [Ignore]
         public IEnumerable<int> RelatedEnemies { get; set; }
+        [Ignore]
+        [DataMember(Name = "locations")]
+        public IEnumerable<Location> Locations { get; set; }
     }
 }

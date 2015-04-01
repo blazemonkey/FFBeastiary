@@ -20,8 +20,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\IEnumerable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EnemyLocation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IStats.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StatsFFVII.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\FileReaderService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\IFileReaderService.cs" />
@@ -63,12 +65,14 @@
     <Content Include="$(MSBuildThisFileDirectory)Data\enemies.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Data\enemies_locations.json" />
     <Content Include="$(MSBuildThisFileDirectory)Data\games.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="$(MSBuildThisFileDirectory)Data\key.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Data\locations.json" />
     <Content Include="$(MSBuildThisFileDirectory)Data\stats_ffvii.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -72,7 +72,7 @@ namespace FFBestiary.Services.ImgurService
             _refreshToken = keys.RefreshToken;
         }
 
-        private void WriteKeys()
+        private async Task WriteKeys()
         {
             var imgurKeys = new ImgurKeys
             {
@@ -83,7 +83,7 @@ namespace FFBestiary.Services.ImgurService
             };
 
             var jsonSerialize = _json.Serialize(imgurKeys);
-            _fileReader.WriteFile(ApplicationData.Current.LocalFolder, jsonSerialize, "key.json");
+            await _fileReader.WriteFile(ApplicationData.Current.LocalFolder, jsonSerialize, "key.json");
         }
 
         private async Task GetNewAccessToken()
@@ -107,7 +107,7 @@ namespace FFBestiary.Services.ImgurService
                     var fullResponse = _json.Deserialize<ImgurRefreshToken>(responseBody);
                     _accessToken = fullResponse.AccessToken;
 
-                    WriteKeys();
+                    await WriteKeys();
                 }
                 catch (HttpRequestException)
                 {
