@@ -33,6 +33,7 @@ namespace FFBestiary.Services.SQLiteService
         {            
             var createTasks = new Task[]
             {
+                _conn.CreateTableAsync<Favourite>(),
                 _conn.CreateTableAsync<Enemy>(),
                 _conn.CreateTableAsync<Game>(),
                 _conn.CreateTableAsync<Location>(),
@@ -103,8 +104,7 @@ namespace FFBestiary.Services.SQLiteService
         public async Task<Enemy> GetEnemyById(int id)
         {
             var enemy = await _conn.FindAsync<Enemy>(id);
-            enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
-            enemy.Locations = await _conn.QueryAsync<Location>("SELECT l.* FROM EnemyLocations AS el JOIN Locations AS l ON el.locationId = l.Id WHERE el.enemyId = ?", id);
+            await SetEnemyProperties(enemy);
 
             return enemy;
         }
@@ -115,11 +115,17 @@ namespace FFBestiary.Services.SQLiteService
 
             foreach (var enemy in enemies)
             {
-                enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
-                enemy.Locations = await _conn.QueryAsync<Location>("SELECT l.* FROM EnemyLocations AS el JOIN Locations AS l ON el.locationId = l.Id WHERE el.enemyId = ?", enemy.Id);
+                await SetEnemyProperties(enemy);
             }
 
             return enemies;
+        }
+
+        private async Task SetEnemyProperties(Enemy enemy)
+        {
+            enemy.Stats = await _conn.Table<StatsFFVII>().Where(x => x.EnemyId == enemy.Id).ToListAsync();
+            enemy.Locations = await _conn.QueryAsync<Location>("SELECT l.* FROM EnemyLocations AS el JOIN Locations AS l ON el.locationId = l.Id WHERE el.enemyId = ?", enemy.Id);
+            enemy.IsFavourite = await _conn.Table<Favourite>().Where(x => x.EnemyId == enemy.Id).CountAsync() > 0 ? true : false;
         }
 
         public async Task<IEnumerable<Enemy>> GetAllEnemies()
@@ -151,6 +157,27 @@ namespace FFBestiary.Services.SQLiteService
             game.ImgurId = albumId;
 
             await _conn.UpdateAsync(game);           
+        }
+
+        public async Task<IEnumerable<Favourite>> GetFavourites()
+        {
+            return await _conn.Table<Favourite>().ToListAsync();
+        }
+
+        public async Task AddEnemyToFavourites(int enemyId)
+        {
+            var favourite = new Favourite()
+            {
+                EnemyId = enemyId
+            };
+
+            await _conn.InsertAsync(favourite);
+        }        
+
+        public async Task RemoveEnemyFromFavourites(int enemyId)
+        {
+            var favourite = await _conn.FindAsync<Favourite>(enemyId);
+            await _conn.DeleteAsync(favourite);
         }
 
         public async Task ClearLocalDb()

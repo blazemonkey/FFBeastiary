@@ -25,8 +25,7 @@
     </controls:PageBase.Resources>
     
     <Grid>
-
-        <Hub Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
+        <Hub x:Name="BeastiaryHub" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" >
             <Hub.Header>
                 <TextBlock Text="{Binding Title}"/>
             </Hub.Header>
@@ -52,6 +51,16 @@
             </HubSection>
             <HubSection Header="FAVOURITES">
                 <DataTemplate>
+                    <GridView ItemsSource="{Binding Favourites}" SelectionMode="None" IsItemClickEnabled="True">
+                        <GridView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <Image Source="{Binding ImagePath}" Width="150"/>
+                                    <TextBlock Text="{Binding Name}" FontSize="{ThemeResource HubControlFontSize}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </GridView.ItemTemplate>
+                    </GridView>
                 </DataTemplate>
             </HubSection>
 

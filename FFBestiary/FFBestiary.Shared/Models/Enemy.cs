@@ -8,8 +8,10 @@ namespace FFBestiary.Models
 {
     [Table("Enemies")]
     [DataContract]
-    public class Enemy
+    public class Enemy : ModelBase
     {
+        private bool _isFavourite;
+
         [PrimaryKey, AutoIncrement]
         [DataMember(Name = "id")]
         public int Id { get; set; }
@@ -25,6 +27,16 @@ namespace FFBestiary.Models
         public string DisplayOrder { get; set; }
         [DataMember(Name = "isBoss")]
         public bool IsBoss { get; set; }
+        [Ignore]
+        public bool IsFavourite
+        {
+            get { return _isFavourite; }
+            set
+            {
+                _isFavourite = value;
+                RaisePropertyChanged("IsFavourite");
+            }
+        }
         [Ignore]
         public IEnumerable<IStats> Stats { get; set; }
         [Ignore]

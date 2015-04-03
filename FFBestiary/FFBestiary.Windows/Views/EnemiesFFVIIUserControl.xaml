@@ -19,12 +19,18 @@
         <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
         <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
         <converters:IsBossConverter x:Key="IsBossConverter"/>
+        <converters:BooleanToSymbolFavouritesConverter x:Key="BooleanToSymbolFavouritesConverter"/>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
 
     <StackPanel Visibility="{Binding SelectedEnemy,Converter={StaticResource NullToVisibilityConverter}}">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
+            <Border BorderThickness="3" BorderBrush="White" HorizontalAlignment="Center" VerticalAlignment="Center" CornerRadius="20">
+                <Button BorderThickness="0" Padding="0" Command="{Binding FavouritesCommand}">
+                    <SymbolIcon Symbol="{Binding SelectedEnemy.IsFavourite, Converter={StaticResource BooleanToSymbolFavouritesConverter}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                </Button>
+            </Border>
+            <TextBlock Margin="10,0,0,0" Text="{Binding SelectedEnemy.Name, Converter={StaticResource ToUpperCaseConverter}}" FontSize="72"/>
             <TextBlock Margin="10,0,0,0" Text="{Binding SelectedEnemy.IsBoss, Converter={StaticResource IsBossConverter}}" VerticalAlignment="Center"/>
         </StackPanel>
         <Line Stroke="White" StrokeThickness="2" X2="1200" />

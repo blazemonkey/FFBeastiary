@@ -13,6 +13,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\PageBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToSymbolFavouritesConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ImageFullPathConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\IsBossConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\NullToVisibilityConverter.cs" />
@@ -21,9 +22,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\ItemClickCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Enemy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\EnemyLocation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Favourite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Game.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\IStats.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Location.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ModelBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\StatsFFVII.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\FileReaderService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\FileReaderService\IFileReaderService.cs" />
@@ -43,9 +46,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService\INavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\NavigationService\NavigationService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\ISqlLiteService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\SQLite\SQLite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\SQLite\SQLiteAsync.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\SQLiteService\SqlLiteService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SQLite\SQLite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SQLite\SQLiteAsync.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="$(MSBuildThisFileDirectory)App.xaml">

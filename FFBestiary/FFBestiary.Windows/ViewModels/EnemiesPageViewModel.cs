@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FFBestiary.Services.MessageDialogService;
 
 namespace FFBestiary.ViewModels
 {
@@ -18,6 +19,7 @@ namespace FFBestiary.ViewModels
     {
         private ISqlLiteService _localDb;
         private INavigationService _navigationService;
+        private IMessageDialogService _dialog;
 
         private Game _selectedGame;
         private ObservableCollection<Enemy> _enemies;
@@ -69,11 +71,13 @@ namespace FFBestiary.ViewModels
         public DelegateCommand SortEnemiesCommand { get; set; }
         public DelegateCommand<Enemy> ShowEnemyCommand { get; set; }
         public DelegateCommand BackCommand { get; set; }
+        public DelegateCommand FavouritesCommand { get; set; }
 
-        public EnemiesPageViewModel(ISqlLiteService localDb, INavigationService navigationService)
+        public EnemiesPageViewModel(ISqlLiteService localDb, INavigationService navigationService, IMessageDialogService dialog)
         {
             _localDb = localDb;
             _navigationService = navigationService;
+            _dialog = dialog;
 
             Enemies = new ObservableCollection<Enemy>();
             SortOptions = new ObservableCollection<string>(new [] { "A-Z", "ORDER OF APPEARANCE", "LEVEL" });
@@ -82,6 +86,7 @@ namespace FFBestiary.ViewModels
             SortEnemiesCommand = new DelegateCommand(ExecuteSortEnemiesCommand, () => true);
             ShowEnemyCommand = new DelegateCommand<Enemy>(ExecuteShowEnemyCommand, x => true);
             BackCommand = new DelegateCommand(ExecuteBackCommand, () => true);
+            FavouritesCommand = new DelegateCommand(ExecuteFavouritesCommand, () => true);
         }
 
         private void ChangeSorting(string method)
@@ -117,6 +122,26 @@ namespace FFBestiary.ViewModels
         private void ExecuteBackCommand()
         {
             _navigationService.GoBack();
+        }
+
+        private void ExecuteFavouritesCommand()
+        {
+            if (SelectedEnemy.IsFavourite)
+                RemoveFromFavourites(SelectedEnemy.Id);
+            else
+                AddToFavourites(SelectedEnemy.Id);            
+        }
+
+        private async void AddToFavourites(int enemyId)
+        {
+            await _dialog.ShowYesNo(string.Format("Add {0} to Favourites?", SelectedEnemy.Name), () => _localDb.AddEnemyToFavourites(enemyId));
+            SelectedEnemy.IsFavourite = true;
+        }
+
+        private async void RemoveFromFavourites(int enemyId)
+        {
+            await _dialog.ShowYesNo(string.Format("Remove {0} from Favourites?", SelectedEnemy.Name), () => _localDb.RemoveEnemyFromFavourites(enemyId));
+            SelectedEnemy.IsFavourite = false;
         }
 
         public override async void OnNavigatedTo(object navigationParameter, Windows.UI.Xaml.Navigation.NavigationMode navigationMode, Dictionary<string, object> viewModelState)

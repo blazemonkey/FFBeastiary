@@ -22,6 +22,7 @@ namespace FFBestiary.ViewModels
         private IImgurService _imgur;
         private string _title;
         private ObservableCollection<Game> _games;
+        private ObservableCollection<Enemy> _favourites;
 
         public string Title
         {
@@ -35,6 +36,12 @@ namespace FFBestiary.ViewModels
             set { SetProperty(ref _games, value); }
         }
 
+        public ObservableCollection<Enemy> Favourites
+        {
+            get { return _favourites; }
+            set { SetProperty(ref _favourites, value); }
+        }
+
         public DelegateCommand<Game> GameClickCommand { get; set; }
 
         public MainPageViewModel(ISqlLiteService localDb, INavigationService navigationService, IImgurService imgur)
@@ -44,13 +51,25 @@ namespace FFBestiary.ViewModels
             _imgur = imgur;
 
             Title = "FINAL FANTASY BEASTIARY";
-            Games = new ObservableCollection<Game>();            
+            Games = new ObservableCollection<Game>();
+            Favourites = new ObservableCollection<Enemy>();
 
             GameClickCommand = new DelegateCommand<Game>(ExecuteGameClickCommand, x => true);
         }
 
         private async Task Initialize()
         {
+            Favourites.Clear();
+            var favourites = await _localDb.GetFavourites();
+            foreach (var fav in favourites)
+            {
+                var enemy = await _localDb.GetEnemyById(fav.EnemyId);
+                Favourites.Add(enemy);
+            }
+
+            if (Games.Any())
+                return;
+
             var games = await _localDb.GetAllGames();
             games.ForEach(x => Games.Add(x));
 
