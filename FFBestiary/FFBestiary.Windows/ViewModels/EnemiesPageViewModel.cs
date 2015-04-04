@@ -134,14 +134,16 @@ namespace FFBestiary.ViewModels
 
         private async void AddToFavourites(int enemyId)
         {
-            await _dialog.ShowYesNo(string.Format("Add {0} to Favourites?", SelectedEnemy.Name), () => _localDb.AddEnemyToFavourites(enemyId));
-            SelectedEnemy.IsFavourite = true;
+            var result = await _dialog.ShowYesNo(string.Format("Add {0} to Favourites?", SelectedEnemy.Name), () => _localDb.AddEnemyToFavourites(enemyId));
+            if (result)
+                SelectedEnemy.IsFavourite = true;
         }
 
         private async void RemoveFromFavourites(int enemyId)
         {
-            await _dialog.ShowYesNo(string.Format("Remove {0} from Favourites?", SelectedEnemy.Name), () => _localDb.RemoveEnemyFromFavourites(enemyId));
-            SelectedEnemy.IsFavourite = false;
+            var result = await _dialog.ShowYesNo(string.Format("Remove {0} from Favourites?", SelectedEnemy.Name), () => _localDb.RemoveEnemyFromFavourites(enemyId));
+            if (result)
+                SelectedEnemy.IsFavourite = false;
         }
 
         public override async void OnNavigatedTo(object navigationParameter, Windows.UI.Xaml.Navigation.NavigationMode navigationMode, Dictionary<string, object> viewModelState)
