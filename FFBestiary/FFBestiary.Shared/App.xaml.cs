@@ -50,7 +50,6 @@ namespace FFBestiary
             _container.Register<INavigationService, NavigationService>();
 
             await _container.GetInstance<SqlLiteService>().ClearLocalDb();
-            await _container.GetInstance<ImgurService>().Initialize();
             return;
         }
 

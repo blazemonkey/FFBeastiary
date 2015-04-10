@@ -73,8 +73,7 @@ namespace FFBestiary.ViewModels
             var games = await _localDb.GetAllGames();
             games.ForEach(x => Games.Add(x));
 
-            var albums = await _imgur.GetAllAlbums();
-            var images = await _imgur.GetAlbumImages(albums.First(x => x.Title == "FFVII").Id);
+            await _imgur.Initialize();
         }
 
         private void ExecuteGameClickCommand(Game game)

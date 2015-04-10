@@ -40,20 +40,29 @@ namespace FFBestiary.Services.ImgurService
             _dialog = dialog;
         }
 
-        public async Task Initialize()
+        public async Task<bool> Initialize()
         {
-            var albums = await GetAllAlbums();
-
-            foreach (var album in albums)
+            try
             {
-                await _sql.UpdateGameImgurId(album.Title, album.Id);
-                var images = await GetAlbumImages(album.Id);
-                
-                foreach (var image in images)
+                var albums = await GetAllAlbums();
+
+                foreach (var album in albums)
                 {
-                    await _sql.UpdateEnemyImagePath(image.Name, image.Link);
+                    await _sql.UpdateGameImgurId(album.Title, album.Id);
+                    var images = await GetAlbumImages(album.Id);
+
+                    foreach (var image in images)
+                    {
+                        await _sql.UpdateEnemyImagePath(image.Name, image.Link);
+                    }
                 }
             }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private async Task ReadKeys()
@@ -88,6 +97,10 @@ namespace FFBestiary.Services.ImgurService
 
         private async Task GetNewAccessToken()
         {
+
+            var success = true;
+            var error = false;
+
             using (var webRequest = new HttpClient())
             {
                 var postData = new List<KeyValuePair<string, string>>();
@@ -109,16 +122,27 @@ namespace FFBestiary.Services.ImgurService
 
                     await WriteKeys();
                 }
-                catch (HttpRequestException)
+                catch (HttpRequestException e)
                 {
-
+                    if (e.Message.StartsWith("Response status code does not indicate success: 403 (Permission Denied)."))
+                        success = false;
+                    else
+                        error = true;                    
                 }
+                catch (Exception)
+                {
+                    error = true;
+                }
+
+                if (error)
+                    await _dialog.Show(_errorMessage);
             }
         }
 
         public async Task<IEnumerable<ImgurAlbum>> GetAllAlbums()
         {
             var success = true;
+            var error = false;
 
             using (var webRequest = new HttpClient())
             {
@@ -140,14 +164,17 @@ namespace FFBestiary.Services.ImgurService
                 {
                     if (e.Message.StartsWith("Response status code does not indicate success: 403 (Permission Denied)."))
                         success = false;
-                    else                    
-                        _dialog.Show(_errorMessage);                    
+                    else
+                        error = true;             
                 }
                 catch (Exception)
                 {
-                    _dialog.Show(_errorMessage);
+                    error = true;
                 }
-            }    
+            }
+
+            if (error)
+                await _dialog.Show(_errorMessage);
        
             if (!success)
             {
@@ -161,6 +188,7 @@ namespace FFBestiary.Services.ImgurService
         public async Task<IEnumerable<ImgurImage>> GetAlbumImages(string id)
         {
             var success = true;
+            var error = false;
 
             using (var webRequest = new HttpClient())
             {
@@ -183,13 +211,16 @@ namespace FFBestiary.Services.ImgurService
                     if (e.Message.StartsWith("Response status code does not indicate success: 403 (Permission Denied)."))
                         success = false;
                     else
-                        _dialog.Show(_errorMessage);
+                        error = true;
                 }
                 catch (Exception)
                 {
-                    _dialog.Show(_errorMessage);
+                    error = true;
                 }
             }
+
+            if (error)
+                await _dialog.Show(_errorMessage);
 
             if (!success)
             {

@@ -19,6 +19,7 @@
         <converters:ImageFullPathConverter x:Key="ImageFullPathConverter" SubFolder="{Binding SelectedGame.AbbrName}"/>
         <converters:ToUpperCaseConverter x:Key="ToUpperCaseConverter"/>
         <converters:IsBossConverter x:Key="IsBossConverter"/>
+        <converters:EnemyStatsVisibilityConvertercs x:Key="EnemyStatsVisibilityConvertercs"/>
         <converters:BooleanToSymbolFavouritesConverter x:Key="BooleanToSymbolFavouritesConverter"/>
         <converters:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </UserControl.Resources>
@@ -54,6 +55,7 @@
             </Grid>
             <Grid Grid.Column="1" Margin="10">
                 <StackPanel>
+                    <ComboBox Width="250" HorizontalAlignment="Left" DisplayMemberPath="Type" ItemsSource="{Binding EnemyStats}" SelectedItem="{Binding SelectedEnemyStats, Mode=TwoWay}" FontSize="{ThemeResource HubControlFontSize}" Visibility="{Binding EnemyStats.Count, Converter={StaticResource EnemyStatsVisibilityConvertercs}}"/>
                     <TextBlock Text="BATTLE STATISTICS" FontSize="46"/>
                     <Line Stroke="White" StrokeThickness="1" X2="260" />
                     <Grid Margin="10" DataContext="{Binding SelectedEnemyStats}">

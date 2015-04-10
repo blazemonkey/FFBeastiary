@@ -12,7 +12,7 @@ namespace FFBestiary.Models
     {
         private bool _isFavourite;
 
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         [DataMember(Name = "id")]
         public int Id { get; set; }
         [DataMember(Name = "gameId")]

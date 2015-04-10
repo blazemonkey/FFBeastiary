@@ -7,7 +7,7 @@ namespace FFBestiary.Services.MessageDialogService
 {
     public interface IMessageDialogService
     {
-        void Show(string text);
+        Task Show(string text);
         Task<bool> ShowYesNo(string text, Action executeOnYes);
     }
 }

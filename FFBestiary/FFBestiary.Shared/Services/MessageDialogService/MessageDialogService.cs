@@ -8,7 +8,7 @@ namespace FFBestiary.Services.MessageDialogService
 {
     public class MessageDialogService : IMessageDialogService
     {
-        public async void Show(string text)
+        public async Task Show(string text)
         {
             var dialog = new MessageDialog(text);
             await dialog.ShowAsync();

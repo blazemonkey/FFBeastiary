@@ -40,5 +40,7 @@ namespace FFBestiary.Models
         public int Dexterity { get; set; }
         [DataMember(Name = "luck")]
         public int Luck { get; set; }
+        [DataMember(Name = "type")]
+        public string Type { get; set; }
     }
 }
